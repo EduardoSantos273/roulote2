@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora e Organizador de Clientes</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <h1>Calculadora e Organizador de Clientes</h1>
+    <button onclick="adicionarCliente()">Adicionar Cliente</button>
+    <button onclick="excluirCliente()">Excluir Cliente</button>
+    <button onclick="editarCliente()">Editar Cliente</button>
+
+    <div id="calculadora" style="display:none;">
+        <h2>Calculadora</h2>
+        <div>
+            <h3>Base</h3>
+            <button onclick="adicionarItem('Bifana')">Bifana</button>
+            <button onclick="adicionarItem('Hamburguer')">Hamburguer</button>
+            <button onclick="adicionarItem('Cachorro')">Cachorro</button>
+            <button onclick="adicionarItem('Entremeada')">Entremeada</button>
+        </div>
+        <div>
+            <h3>Complementações</h3>
+            <button onclick="adicionarItem('Simples', 3)">Simples - 3€</button>
+            <button onclick="adicionarItem('Queijo', 3.25)">Queijo - 3,25€</button>
+            <button onclick="adicionarItem('Q/Bacon', 3.5)">Q/Bacon - 3,50€</button>
+            <button onclick="adicionarItem('Especial', 4)">Especial - 4€</button>
+        </div>
+        <div>
+            <h3>Produtos Separados</h3>
+            <button onclick="adicionarItem('Vegetariana', 2)">Vegetariana - 2€</button>
+            <button onclick="adicionarItem('Agua', 1)">Água - 1€</button>
+            <button onclick="adicionarItem('Mini', 1)">Mini - 1€</button>
+            <button onclick="adicionarItem('Latas', 1.25)">Latas - 1,25€</button>
+            <button onclick="adicionarItem('Cafe', 0.5)">Café - 0,50€</button>
+        </div>
+        <div>
+            <label for="nomeCliente">Nome do Cliente (opcional):</label>
+            <input type="text" id="nomeCliente">
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
