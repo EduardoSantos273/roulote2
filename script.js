@@ -3,12 +3,12 @@ let totalPrice = 0;
 document.querySelectorAll('.calculator button').forEach(button => {
     button.addEventListener('click', function() {
         const price = parseFloat(this.getAttribute('data-price'));
-        const item = this.textContent;
+        const item = this.textContent.split(' - ')[0]; // Ajuste para pegar apenas o nome do item
         totalPrice += price;
 
         const orderSummary = document.getElementById('order-summary');
         const newItem = document.createElement('li');
-        newItem.textContent = item;
+        newItem.textContent = `${item} - ${price.toFixed(2)}€`;
         orderSummary.appendChild(newItem);
 
         document.getElementById('total-price').textContent = totalPrice.toFixed(2);
