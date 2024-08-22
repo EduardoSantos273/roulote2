@@ -20,11 +20,12 @@ h2 {
 }
 
 button {
-    display: block;
-    width: 100%;
-    margin: 5px 0;
+    display: inline-block;
+    width: 48%;
+    margin: 5px 1%;
     padding: 10px;
     font-size: 16px;
+    box-sizing: border-box;
 }
 
 input {
@@ -33,4 +34,17 @@ input {
     margin: 10px 0;
     padding: 10px;
     font-size: 16px;
+}
+
+.summary {
+    margin-top: 20px;
+}
+
+#order-summary {
+    list-style-type: none;
+    padding: 0;
+}
+
+#order-summary li {
+    margin: 5px 0;
 }
