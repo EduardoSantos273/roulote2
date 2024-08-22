@@ -12,25 +12,30 @@
             <h2>Calculadora</h2>
             <div class="base-group">
                 <h3>Base</h3>
-                <button>Bifana</button>
-                <button>Hamburguer</button>
-                <button>Cachorro</button>
-                <button>Entremeada</button>
+                <button data-price="0">Bifana</button>
+                <button data-price="0">Hamburguer</button>
+                <button data-price="0">Cachorro</button>
+                <button data-price="0">Entremeada</button>
             </div>
             <div class="complement-group">
                 <h3>Complementações</h3>
-                <button>Simples - 3€</button>
-                <button>Queijo - 3,25€</button>
-                <button>Q/Bacon - 3,50€</button>
-                <button>Especial - 4€</button>
+                <button data-price="3">Simples - 3€</button>
+                <button data-price="3.25">Queijo - 3,25€</button>
+                <button data-price="3.5">Q/Bacon - 3,50€</button>
+                <button data-price="4">Especial - 4€</button>
             </div>
             <div class="separate-products">
                 <h3>Produtos Separados</h3>
-                <button>Vegetariana - 2€</button>
-                <button>Água - 1€</button>
-                <button>Mini - 1€</button>
-                <button>Latas - 1,25€</button>
-                <button>Café - 0,50€</button>
+                <button data-price="2">Vegetariana - 2€</button>
+                <button data-price="1">Água - 1€</button>
+                <button data-price="1">Mini - 1€</button>
+                <button data-price="1.25">Latas - 1,25€</button>
+                <button data-price="0.5">Café - 0,50€</button>
+            </div>
+            <div class="summary">
+                <h3>Resumo do Pedido</h3>
+                <ul id="order-summary"></ul>
+                <p>Total: <span id="total-price">0</span>€</p>
             </div>
             <input type="text" placeholder="Nome do Cliente" id="client-name">
             <button id="add-client">Adicionar Cliente</button>
