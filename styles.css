@@ -1,50 +1,67 @@
 body {
     font-family: Arial, sans-serif;
-    background-color: #fff;
-    margin: 0;
-    padding: 0;
 }
 
 .container {
     display: flex;
-    justify-content: space-between;
+    height: 100vh;
+}
+
+.left, .right {
     padding: 20px;
-}
-
-.calculator, .orders {
-    width: 45%;
-}
-
-h2 {
-    text-align: center;
-}
-
-button {
-    display: inline-block;
-    width: 48%;
-    margin: 5px 1%;
-    padding: 10px;
-    font-size: 16px;
     box-sizing: border-box;
 }
 
-input {
-    display: block;
-    width: 100%;
-    margin: 10px 0;
-    padding: 10px;
-    font-size: 16px;
+.left {
+    flex: 75%;
+    border-right: 1px solid #ccc;
 }
 
-.summary {
+.right {
+    flex: 25%;
+}
+
+button {
+    display: block;
+    margin: 10px 0;
+    padding: 20px;
+    width: 100%;
+    box-sizing: border-box;
+    font-size: 20px;
+    border-radius: 8px;
+}
+
+#products button {
+    width: 30%;
+    margin: 5px;
+    display: inline-block;
+}
+
+#specialButtons {
+    display: flex;
+    justify-content: space-between;
+}
+
+#specialButtons button {
+    width: 22%;
+    margin: 5px;
+    padding: 20px;
+    font-size: 18px;
+}
+
+#currentOrder {
     margin-top: 20px;
 }
 
-#order-summary {
-    list-style-type: none;
-    padding: 0;
+#currentOrder h3, #currentOrder p {
+    font-size: 18px;
 }
 
-#order-summary li {
-    margin: 5px 0;
+.order-buttons {
+    display: flex;
+    justify-content: space-between;
+}
+
+.order-buttons button {
+    width: 48%;
 }
