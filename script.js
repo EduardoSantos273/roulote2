@@ -1,39 +1,61 @@
-let totalPrice = 0;
+let clients = [];
+let currentProducts = [];
+let editingClientId = null;
+let clientIdCounter = 1;
+let selectedSpecial = '';
+let actionHistory = [];
 
-document.querySelectorAll('.calculator button').forEach(button => {
-    button.addEventListener('click', function() {
-        const price = parseFloat(this.getAttribute('data-price'));
-        const item = this.textContent.split(' - ')[0]; // Ajuste para pegar apenas o nome do item
-        totalPrice += price;
+function addProduct(name, price) {
+    if (selectedSpecial) {
+        name = `${selectedSpecial} ${name}`;
+        selectedSpecial = '';
+    }
+    const existingProduct = currentProducts.find(product => product.name === name);
+    if (existingProduct) {
+        existingProduct.quantity += 1;
+    } else {
+        currentProducts.push({ name, price, quantity: 1 });
+    }
+    actionHistory.push({ action: 'add', product: { name, price } });
+    renderCurrentOrder();
+}
 
-        const orderSummary = document.getElementById('order-summary');
-        const newItem = document.createElement('li');
-        newItem.textContent = `${item} - ${price.toFixed(2)}€`;
-        orderSummary.appendChild(newItem);
+function selectSpecial(special) {
+    selectedSpecial = special;
+}
 
-        document.getElementById('total-price').textContent = totalPrice.toFixed(2);
+function renderCurrentOrder() {
+    const orderList = document.getElementById('orderList');
+    const orderTotal = document.getElementById('orderTotal');
+    orderList.innerHTML = '';
+    let total = 0;
+    currentProducts.forEach(product => {
+        const li = document.createElement('li');
+        li.textContent = `${product.name} - ${product.price}€ (${product.quantity})`;
+        orderList.appendChild(li);
+        total += product.price * product.quantity;
     });
-});
+    orderTotal.textContent = total.toFixed(2);
+}
 
-document.getElementById('add-client').addEventListener('click', function() {
-    const clientName = document.getElementById('client-name').value || `Cliente ${document.getElementById('order-list').children.length + 1}`;
-    const orderSummary = document.getElementById('order-summary').innerHTML;
-    const total = document.getElementById('total-price').textContent;
+function undoLastAction() {
+    const lastAction = actionHistory.pop();
+    if (lastAction) {
+        if (lastAction.action === 'add') {
+            const productIndex = currentProducts.findIndex(product => product.name === lastAction.product.name);
+            if (productIndex !== -1) {
+                currentProducts[productIndex].quantity -= 1;
+                if (currentProducts[productIndex].quantity === 0) {
+                    currentProducts.splice(productIndex, 1);
+                }
+            }
+        }
+        renderCurrentOrder();
+    }
+}
 
-    const orderList = document.getElementById('order-list');
-    const newOrder = document.createElement('li');
-    newOrder.innerHTML = `<strong>${clientName}</strong><br>Pedido: <ul>${orderSummary}</ul>Total: ${total}€`;
-    orderList.appendChild(newOrder);
-
-    document.getElementById('client-name').value = '';
-    document.getElementById('order-summary').innerHTML = '';
-    document.getElementById('total-price').textContent = '0';
-    totalPrice = 0;
-});
-
-document.getElementById('reset').addEventListener('click', function() {
-    document.getElementById('client-name').value = '';
-    document.getElementById('order-summary').innerHTML = '';
-    document.getElementById('total-price').textContent = '0';
-    totalPrice = 0;
-});
+function clearOrder() {
+    currentProducts = [];
+    actionHistory = [];
+    renderCurrentOrder();
+}
