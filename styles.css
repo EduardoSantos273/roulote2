@@ -1,67 +1,61 @@
-body {
-    font-family: Arial, sans-serif;
+let clients = [];
+let currentProducts = [];
+let editingClientId = null;
+let clientIdCounter = 1;
+let selectedSpecial = '';
+let actionHistory = [];
+
+function addProduct(name, price) {
+    if (selectedSpecial) {
+        name = `${selectedSpecial} ${name}`;
+        selectedSpecial = '';
+    }
+    const existingProduct = currentProducts.find(product => product.name === name);
+    if (existingProduct) {
+        existingProduct.quantity += 1;
+    } else {
+        currentProducts.push({ name, price, quantity: 1 });
+    }
+    actionHistory.push({ action: 'add', product: { name, price } });
+    renderCurrentOrder();
 }
 
-.container {
-    display: flex;
-    height: 100vh;
+function selectSpecial(special) {
+    selectedSpecial = special;
 }
 
-.left, .right {
-    padding: 20px;
-    box-sizing: border-box;
+function renderCurrentOrder() {
+    const orderList = document.getElementById('orderList');
+    const orderTotal = document.getElementById('orderTotal');
+    orderList.innerHTML = '';
+    let total = 0;
+    currentProducts.forEach(product => {
+        const li = document.createElement('li');
+        li.textContent = `${product.name} - ${product.price}€ (${product.quantity})`;
+        orderList.appendChild(li);
+        total += product.price * product.quantity;
+    });
+    orderTotal.textContent = total.toFixed(2);
 }
 
-.left {
-    flex: 75%;
-    border-right: 1px solid #ccc;
+function undoLastAction() {
+    const lastAction = actionHistory.pop();
+    if (lastAction) {
+        if (lastAction.action === 'add') {
+            const productIndex = currentProducts.findIndex(product => product.name === lastAction.product.name);
+            if (productIndex !== -1) {
+                currentProducts[productIndex].quantity -= 1;
+                if (currentProducts[productIndex].quantity === 0) {
+                    currentProducts.splice(productIndex, 1);
+                }
+            }
+        }
+        renderCurrentOrder();
+    }
 }
 
-.right {
-    flex: 25%;
-}
-
-button {
-    display: block;
-    margin: 10px 0;
-    padding: 20px;
-    width: 100%;
-    box-sizing: border-box;
-    font-size: 20px;
-    border-radius: 8px;
-}
-
-#products button {
-    width: 30%;
-    margin: 5px;
-    display: inline-block;
-}
-
-#specialButtons {
-    display: flex;
-    justify-content: space-between;
-}
-
-#specialButtons button {
-    width: 22%;
-    margin: 5px;
-    padding: 20px;
-    font-size: 18px;
-}
-
-#currentOrder {
-    margin-top: 20px;
-}
-
-#currentOrder h3, #currentOrder p {
-    font-size: 18px;
-}
-
-.order-buttons {
-    display: flex;
-    justify-content: space-between;
-}
-
-.order-buttons button {
-    width: 48%;
+function clearOrder() {
+    currentProducts = [];
+    actionHistory = [];
+    renderCurrentOrder();
 }
