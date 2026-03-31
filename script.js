@@ -1,6 +1,7 @@
 let clients = [];
 let currentProducts = [];
 let special = '';
+let clientCounter = 1;
 
 function selectSpecial(s) {
     special = s;
@@ -38,7 +39,8 @@ function renderOrder() {
 }
 
 function addClient() {
-    const name = document.getElementById("clientName").value || "Cliente";
+    const nameInput = document.getElementById("clientName").value;
+    const name = nameInput || `Cliente ${clientCounter++}`;
 
     clients.push({
         id: Date.now(),
