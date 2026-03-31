@@ -1,140 +1,109 @@
 let clients = [];
 let currentProducts = [];
-let editingClientId = null;
-let clientIdCounter = 1;
-let selectedSpecial = '';
-let actionHistory = [];
+let editingClient = null;
+let special = '';
+
+function selectSpecial(s) {
+    special = s;
+}
 
 function addProduct(name, price) {
-    if (selectedSpecial) {
-        name = `${selectedSpecial} ${name}`;
-        selectedSpecial = '';
+    if (special) {
+        name = special + " " + name;
+        special = '';
     }
-    const existingProduct = currentProducts.find(product => product.name === name);
-    if (existingProduct) {
-        existingProduct.quantity += 1;
+
+    const item = currentProducts.find(p => p.name === name);
+
+    if (item) {
+        item.quantity++;
     } else {
         currentProducts.push({ name, price, quantity: 1 });
     }
-    actionHistory.push({ type: 'addProduct', name, price });
-    renderCurrentOrder();
+
+    renderOrder();
 }
 
-function selectSpecial(special) {
-    selectedSpecial = special;
-}
+function renderOrder() {
+    const list = document.getElementById("orderList");
+    const totalSpan = document.getElementById("orderTotal");
 
-function renderCurrentOrder() {
-    const orderList = document.getElementById('orderList');
-    const orderTotal = document.getElementById('orderTotal');
-    orderList.innerHTML = '';
+    list.innerHTML = "";
     let total = 0;
-    currentProducts.forEach(product => {
-        const li = document.createElement('li');
-        li.textContent = `${product.name} - ${product.price}€ (${product.quantity})`;
-        orderList.appendChild(li);
-        total += product.price * product.quantity;
+
+    currentProducts.forEach(p => {
+        const li = document.createElement("li");
+        li.textContent = `${p.name} - ${p.price}€ (${p.quantity})`;
+        list.appendChild(li);
+        total += p.price * p.quantity;
     });
-    orderTotal.textContent = total.toFixed(2);
+
+    totalSpan.textContent = total.toFixed(2);
 }
 
 function addClient() {
-    const clientName = document.getElementById('clientName').value || `Cliente ${clientIdCounter++}`;
+    const name = document.getElementById("clientName").value || "Cliente";
+
     const client = {
-        id: clientIdCounter,
-        name: clientName,
+        id: Date.now(),
+        name,
         products: [...currentProducts],
-        total: currentProducts.reduce((sum, product) => sum + product.price * product.quantity, 0),
+        total: currentProducts.reduce((t, p) => t + p.price * p.quantity, 0),
         paid: false
     };
 
-    if (editingClientId !== null) {
-        const index = clients.findIndex(client => client.id === editingClientId);
-        clients[index] = { ...client, id: editingClientId };
-        editingClientId = null;
-        document.getElementById('addClientButton').textContent = 'Adicionar';
-    } else {
-        clients.push(client);
-    }
+    clients.push(client);
 
-    actionHistory.push({ type: 'addClient', client });
     currentProducts = [];
-    document.getElementById('clientName').value = '';
+    document.getElementById("clientName").value = "";
+    renderOrder();
     renderClients();
-    renderCurrentOrder();
-}
-
-function editClient(id) {
-    const client = clients.find(client => client.id === id);
-    currentProducts = [...client.products];
-    document.getElementById('clientName').value = client.name;
-    editingClientId = id;
-    renderCurrentOrder();
-    backToMain();
-    document.getElementById('addClientButton').textContent = 'Confirmar';
-}
-
-function removeClient(id) {
-    const client = clients.find(client => client.id === id);
-    actionHistory.push({ type: 'removeClient', client });
-    clients = clients.filter(client => client.id !== id);
-    renderClients();
-}
-
-function clearOrder() {
-    actionHistory.push({ type: 'clearOrder', products: [...currentProducts] });
-    currentProducts = [];
-    renderCurrentOrder();
 }
 
 function togglePaid(id) {
-    const client = clients.find(c => c.id === id);
-    client.paid = !client.paid;
+    const c = clients.find(x => x.id === id);
+    c.paid = !c.paid;
+    renderClients();
+}
+
+function removeClient(id) {
+    clients = clients.filter(c => c.id !== id);
     renderClients();
 }
 
 function renderClients() {
-    const clientsDiv = document.getElementById('clients');
-    clientsDiv.innerHTML = '';
-    clients.forEach(client => {
-        const clientDiv = document.createElement('div');
-        clientDiv.className = 'client';
-        clientDiv.innerHTML = `
-            <div class="paid-indicator ${client.paid ? 'paid' : 'not-paid'}" onclick="togglePaid(${client.id})"></div>
-            <h3>${client.name}</h3>
-            <ul>
-                ${client.products.map(product => `<li>${product.name} - ${product.price}€ (${product.quantity})</li>`).join('')}
-            </ul>
-            <p>Total: ${client.total.toFixed(2)}€</p>
-            <button onclick="editClient(${client.id})">Editar</button>
-            <button onclick="removeClient(${client.id})">Excluir</button>
+    const div = document.getElementById("clients");
+    div.innerHTML = "";
+
+    clients.forEach(c => {
+        const box = document.createElement("div");
+        box.className = "client";
+
+        box.innerHTML = `
+            <div class="status-dot ${c.paid ? 'paid' : 'unpaid'}"></div>
+            <h3>${c.name}</h3>
+            <ul>${c.products.map(p => `<li>${p.name} (${p.quantity})</li>`).join("")}</ul>
+            <p>Total: ${c.total.toFixed(2)}€</p>
+            <button onclick="removeClient(${c.id})">Excluir</button>
         `;
-        clientsDiv.appendChild(clientDiv);
+
+        box.onclick = () => togglePaid(c.id);
+
+        div.appendChild(box);
     });
 }
 
+function clearOrder() {
+    currentProducts = [];
+    renderOrder();
+}
+
 function showClients() {
-    document.getElementById('mainScreen').style.display = 'none';
-    document.getElementById('clientsScreen').style.display = 'flex';
+    document.getElementById("mainScreen").style.display = "none";
+    document.getElementById("clientsScreen").style.display = "flex";
 }
 
 function backToMain() {
-    document.getElementById('clientsScreen').style.display = 'none';
-    document.getElementById('mainScreen').style.display = 'flex';
-}
-
-function undoAction() {
-    const lastAction = actionHistory.pop();
-    if (!lastAction) return;
-
-    switch (lastAction.type) {
-        case 'addProduct':
-            break;
-        case 'addClient':
-            break;
-        case 'removeClient':
-            break;
-        case 'clearOrder':
-            break;
-    }
+    document.getElementById("clientsScreen").style.display = "none";
+    document.getElementById("mainScreen").style.display = "flex";
 }
