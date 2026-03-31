@@ -63,11 +63,16 @@ body {
 
 #orderList {
     font-size: 22px;
+    padding-left: 20px;
 }
 
 .total {
     font-size: 28px;
     font-weight: bold;
+}
+
+.clients-screen {
+    padding: 20px;
 }
 
 #clients {
@@ -83,6 +88,18 @@ body {
     border-radius: 12px;
     font-size: 22px;
     border: 3px solid #ccc;
+    cursor: pointer;
+}
+
+.client h3 {
+    margin-top: 0;
+    margin-bottom: 10px;
+}
+
+.client ul {
+    margin: 10px 0;
+    padding-left: 20px;
+    font-size: 20px;
 }
 
 .status-dot {
@@ -102,8 +119,17 @@ body {
     width: 100%;
     padding: 15px;
     font-size: 20px;
-    margin-top: 10px;
+    margin-top: 8px;
     border-radius: 10px;
+    border: none;
+}
+
+.client button.edit-btn {
+    background: #007bff;
+    color: white;
+}
+
+.client button.delete-btn {
     background: #dc3545;
     color: white;
 }
