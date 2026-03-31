@@ -7,18 +7,20 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+
     <div class="container" id="mainScreen">
         <div class="left">
             <div class="client-name-container">
                 <input type="text" id="clientName" placeholder="Nome do Cliente (opcional)">
-                <button id="undoButton" onclick="undoAction()">Retroceder</button>
             </div>
+
             <div id="specialButtons">
                 <button onclick="selectSpecial('B')">B</button>
                 <button onclick="selectSpecial('H')">H</button>
                 <button onclick="selectSpecial('E')">E</button>
                 <button onclick="selectSpecial('C')">C</button>
             </div>
+
             <div id="products">
                 <button onclick="addProduct('Simples', 3)">Simples - 3€</button>
                 <button onclick="addProduct('Queijo', 3.50)">Queijo - 3,50€</button>
@@ -38,16 +40,18 @@
                 <h3>Pedido Atual</h3>
                 <ul id="orderList"></ul>
                 <p>Total: <span id="orderTotal">0</span>€</p>
+
                 <div class="order-buttons">
                     <button id="addClientButton" onclick="addClient()">Adicionar</button>
                     <button onclick="clearOrder()">Apagar</button>
                 </div>
             </div>
+
             <button onclick="showClients()">Mostrar Clientes</button>
         </div>
     </div>
 
-    <div class="clients-screen" id="clientsScreen" style="display: none;">
+    <div class="clients-screen" id="clientsScreen" style="display:none;">
         <button onclick="backToMain()" class="back-button">Voltar</button>
         <div id="clients"></div>
     </div>
