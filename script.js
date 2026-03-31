@@ -1,6 +1,5 @@
 let clients = [];
 let currentProducts = [];
-let editingClient = null;
 let special = '';
 
 function selectSpecial(s) {
@@ -15,11 +14,8 @@ function addProduct(name, price) {
 
     const item = currentProducts.find(p => p.name === name);
 
-    if (item) {
-        item.quantity++;
-    } else {
-        currentProducts.push({ name, price, quantity: 1 });
-    }
+    if (item) item.quantity++;
+    else currentProducts.push({ name, price, quantity: 1 });
 
     renderOrder();
 }
@@ -33,7 +29,7 @@ function renderOrder() {
 
     currentProducts.forEach(p => {
         const li = document.createElement("li");
-        li.textContent = `${p.name} - ${p.price}€ (${p.quantity})`;
+        li.textContent = `${p.name} (${p.quantity}) - ${p.price}€`;
         list.appendChild(li);
         total += p.price * p.quantity;
     });
@@ -44,15 +40,13 @@ function renderOrder() {
 function addClient() {
     const name = document.getElementById("clientName").value || "Cliente";
 
-    const client = {
+    clients.push({
         id: Date.now(),
         name,
         products: [...currentProducts],
         total: currentProducts.reduce((t, p) => t + p.price * p.quantity, 0),
         paid: false
-    };
-
-    clients.push(client);
+    });
 
     currentProducts = [];
     document.getElementById("clientName").value = "";
@@ -82,9 +76,8 @@ function renderClients() {
         box.innerHTML = `
             <div class="status-dot ${c.paid ? 'paid' : 'unpaid'}"></div>
             <h3>${c.name}</h3>
-            <ul>${c.products.map(p => `<li>${p.name} (${p.quantity})</li>`).join("")}</ul>
-            <p>Total: ${c.total.toFixed(2)}€</p>
-            <button onclick="removeClient(${c.id})">Excluir</button>
+            <p><strong>Total:</strong> ${c.total.toFixed(2)}€</p>
+            <button onclick="removeClient(${c.id})">Apagar</button>
         `;
 
         box.onclick = () => togglePaid(c.id);
@@ -100,7 +93,7 @@ function clearOrder() {
 
 function showClients() {
     document.getElementById("mainScreen").style.display = "none";
-    document.getElementById("clientsScreen").style.display = "flex";
+    document.getElementById("clientsScreen").style.display = "block";
 }
 
 function backToMain() {
