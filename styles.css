@@ -9,131 +9,69 @@ body {
 
 .left, .right {
     padding: 20px;
-    box-sizing: border-box;
 }
 
 .left {
-    flex: 62.5%;
+    flex: 65%;
     border-right: 1px solid #ccc;
 }
 
 .right {
-    flex: 37.5%;
-}
-
-.client-name-container {
-    display: flex;
-    align-items: center;
-    margin-bottom: 20px;
-}
-
-.client-name-container input[type="text"] {
-    width: 70%;
-    padding: 15px;
-    font-size: 18px;
-    box-sizing: border-box;
-}
-
-.client-name-container button {
-    width: 30%;
-    padding: 15px;
-    font-size: 18px;
-    margin-left: 10px;
-    box-sizing: border-box;
+    flex: 35%;
 }
 
 button {
-    display: block;
-    margin: 10px 0;
-    padding: 20px;
+    padding: 15px;
+    margin: 5px 0;
     width: 100%;
-    box-sizing: border-box;
-    font-size: 20px;
+    font-size: 18px;
     border-radius: 8px;
 }
 
 #products button {
     width: 30%;
-    margin: 5px;
     display: inline-block;
-}
-
-#specialButtons {
-    display: flex;
-    justify-content: space-between;
 }
 
 #specialButtons button {
     width: 22%;
-    margin: 5px;
-    padding: 20px;
-    font-size: 18px;
-}
-
-#currentOrder {
-    margin-top: 20px;
-}
-
-#currentOrder h3, #currentOrder p {
-    font-size: 18px;
-}
-
-.order-buttons {
-    display: flex;
-    justify-content: space-between;
-}
-
-.order-buttons button {
-    width: 48%;
-}
-
-.client {
-    border: 1px solid #ccc;
-    padding: 10px;
-    margin-bottom: 10px;
-    position: relative;
-}
-
-.client h3, .client p {
-    font-size: 18px;
 }
 
 #clients {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-    gap: 10px;
-    width: 100%;
+    gap: 12px;
+}
+
+.client {
+    position: relative;
+    border: 1px solid #ccc;
+    padding: 12px;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+.status-dot {
+    position: absolute;
+    top: 6px;
+    right: 6px;
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+}
+
+.status-dot.unpaid {
+    background: red;
+}
+
+.status-dot.paid {
+    background: green;
 }
 
 .clients-screen {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
     padding: 20px;
-    height: 100vh;
 }
 
 .back-button {
-    padding: 10px 20px;
-    font-size: 18px;
-    border-radius: 5px;
-    cursor: pointer;
     margin-bottom: 20px;
-}
-
-/* 🔵 Indicador de pagamento */
-.paid-indicator {
-    position: absolute;
-    top: 5px;
-    right: 5px;
-    width: 18px;
-    height: 18px;
-    border-radius: 50%;
-    cursor: pointer;
-    border: 2px solid green;
-    background-color: white;
-}
-
-.paid-indicator.paid {
-    background-color: green;
 }
