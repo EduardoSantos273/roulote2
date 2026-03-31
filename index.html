@@ -7,8 +7,12 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <div class="container">
+    <div class="container" id="mainScreen">
         <div class="left">
+            <div class="client-name-container">
+                <input type="text" id="clientName" placeholder="Nome do Cliente (opcional)">
+                <button id="undoButton" onclick="undoAction()">Retroceder</button>
+            </div>
             <div id="specialButtons">
                 <button onclick="selectSpecial('B')">B</button>
                 <button onclick="selectSpecial('H')">H</button>
@@ -17,28 +21,37 @@
             </div>
             <div id="products">
                 <button onclick="addProduct('Simples', 3)">Simples - 3€</button>
-                <button onclick="addProduct('Queijo', 3.25)">Queijo - 3,25€</button>
-                <button onclick="addProduct('Q/Bacon', 3.5)">Q/Bacon - 3,50€</button>
+                <button onclick="addProduct('Queijo', 3.50)">Queijo - 3,50€</button>
+                <button onclick="addProduct('Q/Bacon', 3.70)">Q/Bacon - 3,70€</button>
                 <button onclick="addProduct('Especial', 4)">Especial - 4€</button>
+                <button onclick="addProduct('Entremeada', 3.50)">Entremeada - 3,50€</button>
                 <button onclick="addProduct('Veg', 2)">Veg - 2€</button>
                 <button onclick="addProduct('Agua', 1)">Agua - 1€</button>
-                <button onclick="addProduct('Mini', 1)">Mini - 1€</button>
-                <button onclick="addProduct('Latas', 1.25)">Latas - 1,25€</button>
+                <button onclick="addProduct('Mini', 1.20)">Mini - 1,20€</button>
+                <button onclick="addProduct('Latas', 1.50)">Latas - 1,50€</button>
                 <button onclick="addProduct('Café', 0.5)">Café - 0,50€</button>
             </div>
         </div>
+
         <div class="right">
             <div id="currentOrder">
                 <h3>Pedido Atual</h3>
                 <ul id="orderList"></ul>
                 <p>Total: <span id="orderTotal">0</span>€</p>
                 <div class="order-buttons">
-                    <button onclick="undoLastAction()">Retroceder</button>
+                    <button id="addClientButton" onclick="addClient()">Adicionar</button>
                     <button onclick="clearOrder()">Apagar</button>
                 </div>
             </div>
+            <button onclick="showClients()">Mostrar Clientes</button>
         </div>
     </div>
+
+    <div class="clients-screen" id="clientsScreen" style="display: none;">
+        <button onclick="backToMain()" class="back-button">Voltar</button>
+        <div id="clients"></div>
+    </div>
+
     <script src="script.js"></script>
 </body>
 </html>
