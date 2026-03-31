@@ -34,7 +34,10 @@ function renderOrder() {
 
     currentProducts.forEach(p => {
         const li = document.createElement("li");
-        li.textContent = `${p.name} (${p.quantity}) - ${p.price}€`;
+
+        // FORMATO PEDIDO: Simples - 3€ (2)
+        li.textContent = `${p.name} - ${p.price}€ (${p.quantity})`;
+
         list.appendChild(li);
         total += p.price * p.quantity;
     });
@@ -112,11 +115,11 @@ function renderClients() {
         box.className = "client";
 
         const productsHtml = c.products
-            .map(p => `<li>${p.name} (${p.quantity})</li>`)
+            .map(p => `<li>${p.name} - ${p.price}€ (${p.quantity})</li>`)
             .join("");
 
         box.innerHTML = `
-            <div class="status-dot ${c.paid ? 'paid' : 'unpaid'}"></div>
+            <div class="status-dot ${c.paid ? 'paid' : 'unpaid'}">€</div>
             <h3>${c.name}</h3>
             <ul>${productsHtml}</ul>
             <p><strong>Total:</strong> ${c.total.toFixed(2)}€</p>
