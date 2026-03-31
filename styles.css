@@ -13,12 +13,33 @@ body {
 }
 
 .left {
-    flex: 75%;
+    flex: 62.5%;
     border-right: 1px solid #ccc;
 }
 
 .right {
-    flex: 25%;
+    flex: 37.5%;
+}
+
+.client-name-container {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.client-name-container input[type="text"] {
+    width: 70%;
+    padding: 15px;
+    font-size: 18px;
+    box-sizing: border-box;
+}
+
+.client-name-container button {
+    width: 30%;
+    padding: 15px;
+    font-size: 18px;
+    margin-left: 10px;
+    box-sizing: border-box;
 }
 
 button {
@@ -64,4 +85,55 @@ button {
 
 .order-buttons button {
     width: 48%;
+}
+
+.client {
+    border: 1px solid #ccc;
+    padding: 10px;
+    margin-bottom: 10px;
+    position: relative;
+}
+
+.client h3, .client p {
+    font-size: 18px;
+}
+
+#clients {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 10px;
+    width: 100%;
+}
+
+.clients-screen {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 20px;
+    height: 100vh;
+}
+
+.back-button {
+    padding: 10px 20px;
+    font-size: 18px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-bottom: 20px;
+}
+
+/* 🔵 Indicador de pagamento */
+.paid-indicator {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    cursor: pointer;
+    border: 2px solid green;
+    background-color: white;
+}
+
+.paid-indicator.paid {
+    background-color: green;
 }
