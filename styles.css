@@ -1,5 +1,6 @@
 body {
     font-family: Arial, sans-serif;
+    background: #f2f2f2;
 }
 
 .container {
@@ -12,66 +13,97 @@ body {
 }
 
 .left {
-    flex: 65%;
-    border-right: 1px solid #ccc;
+    flex: 60%;
+    border-right: 3px solid #ccc;
 }
 
 .right {
-    flex: 35%;
+    flex: 40%;
 }
 
-button {
-    padding: 15px;
-    margin: 5px 0;
+.big-input {
     width: 100%;
-    font-size: 18px;
-    border-radius: 8px;
+    padding: 20px;
+    font-size: 26px;
+    border-radius: 10px;
+    margin-bottom: 20px;
 }
 
-#products button {
+.big-btn {
+    width: 23%;
+    padding: 20px;
+    font-size: 28px;
+    margin: 5px;
+    border-radius: 10px;
+}
+
+.product-btn {
     width: 30%;
-    display: inline-block;
+    padding: 25px;
+    font-size: 24px;
+    margin: 5px;
+    border-radius: 10px;
+    background: #fff;
+    border: 2px solid #333;
 }
 
-#specialButtons button {
-    width: 22%;
+.action-btn {
+    width: 100%;
+    padding: 25px;
+    font-size: 28px;
+    margin: 10px 0;
+    border-radius: 10px;
+    color: white;
+    border: none;
+}
+
+.green { background: #28a745; }
+.red { background: #dc3545; }
+.blue { background: #007bff; }
+
+#orderList {
+    font-size: 24px;
+}
+
+.total {
+    font-size: 30px;
+    font-weight: bold;
 }
 
 #clients {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-    gap: 12px;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 20px;
 }
 
 .client {
     position: relative;
-    border: 1px solid #ccc;
-    padding: 12px;
-    border-radius: 8px;
-    cursor: pointer;
+    background: white;
+    padding: 20px;
+    border-radius: 12px;
+    font-size: 24px;
+    border: 3px solid #ccc;
 }
 
 .status-dot {
     position: absolute;
-    top: 6px;
-    right: 6px;
-    width: 22px;
-    height: 22px;
+    top: 10px;
+    right: 10px;
+    width: 28px;
+    height: 28px;
     border-radius: 50%;
+    border: 3px solid #000;
 }
 
-.status-dot.unpaid {
-    background: red;
-}
+.paid { background: green; }
+.unpaid { background: red; }
 
-.status-dot.paid {
-    background: green;
-}
-
-.clients-screen {
-    padding: 20px;
-}
-
-.back-button {
-    margin-bottom: 20px;
+.client button {
+    width: 100%;
+    padding: 15px;
+    font-size: 22px;
+    margin-top: 10px;
+    border-radius: 10px;
+    background: #dc3545;
+    color: white;
 }
